@@ -27,7 +27,8 @@
   </head>
   <body class="container center-align">
     <h1>CSV Converter</h1>
-    <form action="./assets/archivo.csv">
+    <form id="form"> 
+      <!-- action="./assets/archivo.csv" -->
       <div class="file-field input-field">
         <div class="btn blue">
           <span>File</span>
@@ -50,8 +51,7 @@
       <button
         type="submit"
         class="waves-effect waves-light btn blue"
-        onclick="convert()"
-      >
+        onclick="convert()">
         <i class="material-icons">file_download</i>
       </button>
     </form>
