@@ -1,5 +1,6 @@
 function convert() {
-  selectedOption();
+  selectOption();
+  preventDefault();
 }
 
 function preventDefault() {
@@ -9,24 +10,25 @@ function preventDefault() {
   });
 }
 
-function selectedOption() {
+function selectOption() {
   const select = document.getElementById("select").value;
   option = parseInt(select);
   switch (option) {
     case 1:
-      console.log("JSON");
+      convertToJSON();
       break;
     case 2:
-      console.log("XML");
+      convertToXML();
       break;
     case 3:
       convertToHTML();
+      break;
+    default:
+      alert("Choose a file");
   }
 }
 
 function convertToHTML() {
-  preventDefault();
-
   $(document).ready(function() {
     $.ajax({
       url: "archivo.csv",
@@ -52,6 +54,63 @@ function convertToHTML() {
         }
         table_data += "</table>";
         $("#employee_table").html(table_data);
+      }
+    });
+  });
+}
+
+function convertToXML() {
+  $(document).ready(function() {
+    $.ajax({
+      url: "archivo.csv",
+      dataType: "text",
+      success: function(data) {
+        let csvData = data;
+
+        csvData = csvData.split("\n").map(row => row.trim());
+
+        let headings = csvData[0].split(",");
+
+        let xml = ``;
+
+        for (let i = 1; i < csvData.length; i++) {
+          let details = csvData[i].split(",");
+          xml += "<productData>\n";
+          for (let j = 0; j < headings.length; j++) {
+            xml += `<${headings[j]}>${details[j]}</${headings[j]}>
+  `;
+          }
+          xml += "</productData>\n";
+        }
+
+        console.log(xml);
+      }
+    });
+  });
+}
+
+function convertToJSON() {
+  $(document).ready(function() {
+    $.ajax({
+      url: "archivo.csv",
+      dataType: "text",
+      success: function(data) {
+        var lines = data.split("\n");
+
+        var result = [];
+
+        var headers = lines[0].split(",");
+
+        for (var i = 1; i < lines.length; i++) {
+          var obj = {};
+          var currentline = lines[i].split(",");
+
+          for (var j = 0; j < headers.length; j++) {
+            obj[headers[j]] = currentline[j];
+          }
+          result.push(obj);
+        }
+        console.log (JSON.stringify(result))
       }
     });
   });
