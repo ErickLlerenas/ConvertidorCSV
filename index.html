@@ -20,18 +20,10 @@
     <h1>CSV Converter</h1>
     <form id="form" enctype="multipart/form-data" action="" method="POST">
         <!-- action="./assets/archivo.csv" -->
-        <div class="file-field input-field">
-            <div class="btn blue">
-              <i class="material-icons">folder_open</i>
-                <input type="file" id="file" name="file" />
-            </div>
-            <div class="file-path-wrapper">
-                <input class="file-path validate" type="text" placeholder="Select a CSV file" />
-            </div>
-        </div>
+        
         <select id="select">
             <option value="" disabled selected>Choose a file</option>
-            <option value="1">JSON</option>
+            <option value="1">JSON (Console)</option>
             <option value="2">XML (Console)</option>
             <option value="3">HTML</option>
         </select>
